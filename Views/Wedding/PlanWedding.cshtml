@@ -5,4 +5,34 @@
     Layout = "_Layout";
 }
 
-plan a wedding page
+<h1>Plan a Wedding</h1>
+
+<form asp-action="SubmitWedding" asp-controller="Wedding" method="POST" class="shadow p-3 rounded">
+    <div class="d-flex justify-content-center">
+        @* col one *@
+        <div class="mx-2">
+            <div class="mb-5">
+                <label asp-for="WedderOneName"></label>
+                <input asp-for="WedderOneName" class="">
+                <span class="text-danger" asp-validation-for="WedderOneName"></span>
+            </div>
+            <div class="mb-5">
+                <label asp-for="WedderTwoName"></label>
+                <input asp-for="WedderTwoName" class="">
+                <span class="text-danger" asp-validation-for="WedderTwoName"></span>
+            </div>
+            <div class="mb-5">
+                <label asp-for="DateOfWedding"></label>
+                <input asp-for="DateOfWedding" type="date" class="">
+                <span class="text-danger" asp-validation-for="DateOfWedding"></span>
+            </div>
+            <div class="mb-5">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="">
+                <span class="text-danger" asp-validation-for="Address"></span>
+            </div>
+            <input asp-for="UserId" type="hidden" value="@Context.Session.GetInt32("UserId")">
+            <button>Plan Wedding</button>
+        </div>
+    </div>
+</form>

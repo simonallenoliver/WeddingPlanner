@@ -1,0 +1,17 @@
+@model Wedding
+@{
+    ViewData["Title"] = "View Wedding";
+    @* below is the default layout if we don't provide anything *@
+    Layout = "_Layout";
+}
+
+<h1>one wedding!</h1>
+
+<h2>@Model.WedderOneName and @Model.WedderTwoName's Wedding</h2>
+<h3>Date: @Model.DateOfWedding</h3>
+<h3>Guests:</h3>
+
+@foreach (GuestList g in @Model.Users)
+{
+    <p>@g.User.FirstName @g.User.LastName</p>
+}

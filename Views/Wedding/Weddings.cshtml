@@ -1,8 +1,42 @@
-@model Wedding
+@model List<Wedding>
 @{
     ViewData["Title"] = "Home Page";
     @* below is the default layout if we don't provide anything *@
     Layout = "_Layout";
 }
 
-weddings page
+
+<h1>Weddings</h1>
+
+<table class="table">
+    <tr>
+        <th>Wedding of</th>
+        <th>Date</th>
+        <th>Guest Count</th>
+        <th>Action</th>
+    </tr>
+    @foreach(Wedding g in Model)
+{    
+    @* this bool checks to see if the signed in user has accepted or rejected invitation by checking to see if their Id is in the guestlist "Users"*@
+    bool received = g.Users.Any(ug => ug.UserId == Context.Session.GetInt32("UserId"));
+    <tr>
+        <td> <a asp-action="ViewWedding" asp-controller="Wedding" asp-route-weddingId="@g.WeddingId">@g.WedderOneName and @g.WedderTwoName</a></td>
+        <td>@g.DateOfWedding.DayOfWeek @g.DateOfWedding.Month / @g.DateOfWedding.Day / @g.DateOfWedding.Year</td>
+        <td>@g.Users.Count</td>
+        <td>
+            @if(g.UserId == Context.Session.GetInt32("UserId"))
+            {
+                <form asp-action="DeleteWedding" asp-controller="Wedding" asp-route-weddingId="@g.WeddingId" method="post"><button>Delete</button></form>
+            }
+            else
+            {
+                <form asp-action="ToggleWedding" asp-controller="Wedding" asp-route-weddingId="@g.WeddingId" method="post"><button>
+                    @(received ? "Reject" : "Accept")
+                </button></form> 
+            }
+        </td>
+    </tr>
+}
+    
+</table>
+
