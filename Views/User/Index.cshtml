@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LoginLayout";
+}
+
+<h1>Wedding Planner</h1>
+<h3>Login or Register</h3>
+
+<div class="d-flex justify-content-center">
+    @* col 1 *@
+    <div> 
+        @* we're just being explicit and passing the view model as the second argument but it's not necessarry here *@
+        @await Html.PartialAsync("_Register", new User())
+        
+    </div>
+    @* col 2 *@
+    <div>
+        @await Html.PartialAsync("_LogUser", new LogUser())
+    </div>
+</div>
